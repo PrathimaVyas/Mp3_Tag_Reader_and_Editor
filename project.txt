@@ -1,0 +1,37 @@
+IN HEADER FILE
+
+-->  we have to declare the functions and then create a structure to read the tag and size from the mp3 file
+
+IN THE .C FILES
+
+--> We have to validate the command line arguments
+1. ./a.out
+       we have to print error and usage message
+2. ./a.out -v filename
+        --> we have to view the contents present in that mp3 file
+        --> check the file is mp3 file or not
+        --> If it is mp3 file then store that filename in the structure
+        --> then open the file in read mode and store in the struture
+        --> fetch first 3 bytes to check the ID3
+        --> then fetch 2 bytes of data to check the version
+        --> skip the header till 10 bytes
+
+
+        --> After 10 bytes read the tag by 4 bytes and size by 4 bytes
+        --> This size is stored in the bigendian so convert it into little endian by take one char pointer and run the loop for 2 times and swap
+        --> then skip the flag of 3 bytes
+        --> take one char array of tag size+1 then read the data from file and store it in that array using fread
+        --> Print the content till it reaches the comments follow the same steps
+
+3. ./a.out -e -t/-a/-A/-y/-m/-c change_name filename
+        --> we have to edit the things in the input file
+        --> open the file in read and write mode then check for ID3 and version then skip header
+        --> fetch 4 bytes and do the same process as we did in the view
+        --> then check the tags are same or not
+        --> if tags are same, store the content in cla into a duplicate array
+        --> then write that content to the main file using fwrite
+        --> repeat the same process for all the tags
+        --> based on the cla, we have to change only that tag's content
+
+4. ./a.out --help
+        --> show the data according to which we have to print
